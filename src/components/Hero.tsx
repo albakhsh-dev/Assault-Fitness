@@ -10,11 +10,11 @@ const Hero = () => {
         style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1540497077202-7c8a3999166f?q=80&w=2940&auto=format&fit=crop")' }}
       >
         {/* Dark Overlay */}
-        <div className="absolute inset-0 bg-[#0B0B0B]/75 sm:bg-gradient-to-r sm:from-[#0B0B0B]/95 sm:via-[#0B0B0B]/85 sm:to-[#0B0B0B]/60"></div>
+        <div className="absolute inset-0 bg-[#0B0B0B]/85 sm:bg-gradient-to-r sm:from-[#0B0B0B]/95 sm:via-[#0B0B0B]/85 sm:to-[#0B0B0B]/60"></div>
       </div>
 
       {/* Binary Orbits - React Bits Pro Tilted Spiral Galaxy */}
-      <div className="absolute inset-0 z-[1] pointer-events-none opacity-85 mix-blend-screen">
+      <div className="absolute inset-0 z-[1] pointer-events-none opacity-65 sm:opacity-85 mix-blend-screen">
         <BinaryOrbits
           colors={['#FFFDF9', '#E6C58A', '#C89B52', '#8C672A', '#2E1E09']}
           stars={5000}
@@ -38,17 +38,17 @@ const Hero = () => {
           {/* Eyebrow */}
           <div className="flex items-center gap-4 mb-6">
             <div className="h-px w-12 bg-[#C89B52]"></div>
-            <span className="font-['Oswald'] text-[#C89B52] tracking-[0.2em] text-sm uppercase">Strength • Precision • Control</span>
+            <span className="font-['Oswald'] text-[#C89B52] tracking-[0.2em] text-sm uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">Strength • Precision • Control</span>
           </div>
           
           {/* Headline */}
-          <h1 className="font-['Oswald'] text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold text-[#F5F1E9] uppercase leading-[0.9] mb-6">
+          <h1 className="font-['Oswald'] text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold text-[#F5F1E9] uppercase leading-[0.9] mb-6 drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)]">
             Built For <br/>
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#C89B52] to-[#E6C58A]">Strength.</span>
           </h1>
           
           {/* Supporting Text */}
-          <p className="text-[#A7A7A7] text-lg sm:text-xl max-w-xl mb-10 font-light leading-relaxed">
+          <p className="text-[#D4D4D4] sm:text-[#A7A7A7] text-lg sm:text-xl max-w-xl mb-10 font-light leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
             Step into a space designed for focus, discipline, and progress. Discover Assault Fitness in Sangrur.
           </p>
           

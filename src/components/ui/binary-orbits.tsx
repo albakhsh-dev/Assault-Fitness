@@ -29,6 +29,10 @@ export interface BinaryOrbitsProps {
   speed?: number;
   /** Interactive mouse parallax (default: true) */
   interactive?: boolean;
+  /** Horizontal center position as fraction of width (0 to 1) */
+  centerX?: number;
+  /** Vertical center position as fraction of height (0 to 1) */
+  centerY?: number;
   /** Custom CSS classes */
   className?: string;
   /** Custom styles */
@@ -101,6 +105,8 @@ export const BinaryOrbits: React.FC<BinaryOrbitsProps> = ({
   roll = 28,
   speed = 0.55,
   interactive = true,
+  centerX,
+  centerY,
   className = '',
   style,
 }) => {
@@ -223,9 +229,17 @@ export const BinaryOrbits: React.FC<BinaryOrbitsProps> = ({
       ctx.scale(dpr, dpr);
       ctx.clearRect(0, 0, width, height);
 
-      const cx = width / 2;
-      const cy = height / 2;
-      const maxRadius = Math.min(width, height) * 0.46 * scale;
+      const isMobile = width < 768;
+      // On mobile viewports, intelligently frame the galaxy towards the upper-right (0.75, 0.22)
+      // so it never covers mobile text, while keeping perfect 50% center on desktop
+      const posX = centerX !== undefined ? centerX : (isMobile ? 0.75 : 0.5);
+      const posY = centerY !== undefined ? centerY : (isMobile ? 0.22 : 0.5);
+      const responsiveScale = isMobile ? scale * 0.78 : scale;
+      const responsiveCore = isMobile ? core * 0.6 : core;
+
+      const cx = width * posX;
+      const cy = height * posY;
+      const maxRadius = Math.min(width, height) * 0.46 * responsiveScale;
 
       // 3D angles in radians
       const radTilt = ((tilt + mouseRef.current.y) * Math.PI) / 180;
@@ -242,20 +256,20 @@ export const BinaryOrbits: React.FC<BinaryOrbitsProps> = ({
       ctx.globalCompositeOperation = isInk ? 'source-over' : 'lighter';
 
       // 1. Draw Central Galactic Glow Bulge
-      if (!isInk && core > 0) {
-        const coreGradient = ctx.createRadialGradient(cx, cy, 0, cx, cy, maxRadius * 0.28 * core);
+      if (!isInk && responsiveCore > 0) {
+        const coreGradient = ctx.createRadialGradient(cx, cy, 0, cx, cy, maxRadius * 0.28 * responsiveCore);
         const [r0, g0, b0] = paletteRgb[0];
         const [r1, g1, b1] = paletteRgb[Math.min(1, paletteRgb.length - 1)];
         const [r2, g2, b2] = paletteRgb[Math.min(2, paletteRgb.length - 1)];
 
-        coreGradient.addColorStop(0, `rgba(${r0}, ${g0}, ${b0}, ${0.55 * core})`);
-        coreGradient.addColorStop(0.25, `rgba(${r1}, ${g1}, ${b1}, ${0.28 * core})`);
-        coreGradient.addColorStop(0.6, `rgba(${r2}, ${g2}, ${b2}, ${0.08 * core})`);
+        coreGradient.addColorStop(0, `rgba(${r0}, ${g0}, ${b0}, ${0.55 * responsiveCore})`);
+        coreGradient.addColorStop(0.25, `rgba(${r1}, ${g1}, ${b1}, ${0.28 * responsiveCore})`);
+        coreGradient.addColorStop(0.6, `rgba(${r2}, ${g2}, ${b2}, ${0.08 * responsiveCore})`);
         coreGradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
 
         ctx.fillStyle = coreGradient;
         ctx.beginPath();
-        ctx.arc(cx, cy, maxRadius * 0.28 * core, 0, Math.PI * 2);
+        ctx.arc(cx, cy, maxRadius * 0.28 * responsiveCore, 0, Math.PI * 2);
         ctx.fill();
       }
 
