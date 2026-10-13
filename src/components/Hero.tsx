@@ -1,15 +1,35 @@
 import { MapPin, MessageCircle } from 'lucide-react';
+import BinaryOrbits from './ui/binary-orbits';
 
 const Hero = () => {
   return (
-    <section id="home" className="relative h-screen min-h-[600px] flex items-center pt-20">
+    <section id="home" className="relative h-screen min-h-[600px] flex items-center pt-20 overflow-hidden">
       {/* Background Image */}
       <div 
         className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1540497077202-7c8a3999166f?q=80&w=2940&auto=format&fit=crop")' }}
       >
         {/* Dark Overlay */}
-        <div className="absolute inset-0 bg-[#0B0B0B]/70 sm:bg-gradient-to-r sm:from-[#0B0B0B]/90 sm:to-[#0B0B0B]/40"></div>
+        <div className="absolute inset-0 bg-[#0B0B0B]/75 sm:bg-gradient-to-r sm:from-[#0B0B0B]/95 sm:via-[#0B0B0B]/85 sm:to-[#0B0B0B]/60"></div>
+      </div>
+
+      {/* Binary Orbits - React Bits Pro Tilted Spiral Galaxy */}
+      <div className="absolute inset-0 z-[1] pointer-events-none opacity-85 mix-blend-screen">
+        <BinaryOrbits
+          colors={['#FFFDF9', '#E6C58A', '#C89B52', '#8C672A', '#2E1E09']}
+          stars={5000}
+          starSize={1.3}
+          scale={1.05}
+          arms={2}
+          twist={4.2}
+          armStrength={0.86}
+          core={1.25}
+          thickness={0.28}
+          tilt={58}
+          roll={26}
+          speed={0.45}
+          interactive={true}
+        />
       </div>
 
       {/* Content */}
@@ -54,10 +74,17 @@ const Hero = () => {
             </a>
           </div>
           
-          {/* Location Label */}
-          <div className="flex items-center gap-2 text-[#A7A7A7] text-sm tracking-widest uppercase font-['Oswald']">
-            <MapPin size={16} className="text-[#C89B52]" />
-            Sangrur, Punjab
+          {/* Location Label & Binary Orbits indicator */}
+          <div className="flex flex-wrap items-center gap-4 text-[#A7A7A7] text-sm tracking-widest uppercase font-['Oswald']">
+            <div className="flex items-center gap-2">
+              <MapPin size={16} className="text-[#C89B52]" />
+              <span>Sangrur, Punjab</span>
+            </div>
+            <div className="h-4 w-px bg-[#A7A7A7]/20 hidden sm:block"></div>
+            <div className="flex items-center gap-2 px-3 py-1 bg-[#171717]/80 border border-[#C89B52]/30 text-xs text-[#E6C58A] tracking-wider rounded-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#C89B52] animate-pulse"></span>
+              <span>Binary Orbits Active</span>
+            </div>
           </div>
         </div>
       </div>
